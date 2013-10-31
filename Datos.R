@@ -1,13 +1,14 @@
 ##
 Datos <- read.csv("data/Datos.csv",  stringsAsFactors = FALSE)
+Datos <- read.csv("data/DatosNorm.csv",  stringsAsFactors = FALSE)
 Datos$Anio <- c(rep(2001, 32), rep(2002, 32), rep(2003, 32), rep(2004, 32),rep(2005, 32),
                                                   rep(2006, 32), rep(2007, 32), rep(2008, 32),
                                                   rep(2009, 32), rep(2010, 32))
 
+p <- subset(Datos,Datos$Anio==2010)
 
-
-Datos$Homicidios <- Datos$Homicidios / Datos$Población
-Datos$Formación.bruta.de.capital.fijo <- Datos$Formación.bruta.de.capital.fijo
+#Datos$Homicidios <- (Datos$TalentoHomicidios / Datos$Población) * 100000
+#Datos$Formación.bruta.de.capital.fijo <- Datos$Formación.bruta.de.capital.fijo
 
 
 
@@ -27,13 +28,13 @@ for (i in 2:320){
   tmp1 <- Datos$Talento[i]
   tmp2 <- Datos$Talento[i - 1]
   tmp <- ((tmp1 - tmp2 ) / tmp2) * 100
-  Datos$CrecimientoTalentol[i] <- tmp
+  Datos$CrecimientoTalento[i] <- tmp
   remove(list=ls(pattern="tmp"))
 }
 Datos$CrecimientoHomicidios <- 1
 for (i in 2:320){
-  tmp1 <- Datos$Homicidios[i]
-  tmp2 <- Datos$Homicidios[i - 1]
+  tmp1 <- Datos$Tasa.de.homicidios[i]
+  tmp2 <- Datos$Tasa.de.homicidios[i - 1]
   tmp <- ((tmp1 - tmp2 ) / tmp2) * 100
   Datos$CrecimientoHomicidios[i] <- tmp
   remove(list=ls(pattern="tmp"))
